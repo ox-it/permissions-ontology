@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY perm "http://vocab.ox.ac.uk/perm#">
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/">
+    <!ENTITY event "http://purl.org/NET/c4dm/event.owl#">
+    <!ENTITY dctype "http://purl.org/dc/dcmitype/">
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+    <!ENTITY admingeo "http://data.ordnancesurvey.co.uk/ontology/admingeo/">
+]>
+
+<rdf:RDF
+    xmlns:perm="&perm;"
+    xmlns:foaf="&foaf;"
+    xmlns:event="&event;"
+    xmlns:xsd="&xsd;"
+    xmlns:admingeo="&admingeo;"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dctype="&dctype;"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:vann="http://purl.org/vocab/vann/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+  <owl:Ontology rdf:about="">
+    <dc:title>Ontology for modelling permissions</dc:title>
+    <dc:identifier>http://vocab.ox.ac.uk/perm#</dc:identifier>
+    <dc:description>A simple ontology for modelling permissions. Subjects are resources over which permissions may be held (e.g. user accounts, documents, physical objects), and objects are foaf:Agents which may hold those permissions. This ontology defines common permissions (create, read, update, delete, augment) and perm:permittee, the base property for all permissions properties.</dc:description>
+    <vann:preferredNamespaceUri>http://vocab.ox.ac.uk/perm#</vann:preferredNamespaceUri>
+    <vann:preferredNamespacePrefix>perm</vann:preferredNamespacePrefix>
+
+    <dct:isVersionOf rdf:resource="&perm;"/>
+
+    <dc:creator>Alexander Dutton</dc:creator>
+
+    <dct:hasFormat>
+      <dctype:Text rdf:about="http://vocab.ox.ac.uk/perm/schema.html">
+        <dc:format>
+          <dct:IMT>
+            <rdf:value>text/html</rdf:value>
+            <rdfs:label xml:lang="en">HTML</rdfs:label>
+          </dct:IMT>
+        </dc:format>
+      </dctype:Text>
+    </dct:hasFormat>
+
+    <dct:hasFormat>
+      <dctype:Text rdf:about="http://vocab.ox.ac.uk/perm/schema.rdf">
+        <dc:format>
+          <dct:IMT>
+            <rdf:value>application/rdf+xml</rdf:value>
+            <rdfs:label xml:lang="en">RDF/XML</rdfs:label>
+          </dct:IMT>
+        </dc:format>
+      </dctype:Text>
+    </dct:hasFormat>
+
+  </owl:Ontology>
+
+  <foaf:Agent rdf:about="&perm;public">
+    <rdfs:label>public</rdfs:label>
+    <rdfs:comment>The union of all agents</rdfs:comment>
+  </foaf:Agent>
+
+  <rdf:Property rdf:about="&perm;permittee">
+    <rdfs:label>has permittee</rdfs:label>
+    <rdfs:comment>The object has a permission over the subject.</rdfs:comment>
+    <rdfs:range rdf:resource="&foaf;Agent"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&perm;editableBy">
+    <rdfs:label>may be edited by</rdfs:label>
+    <rdfs:comment>The subject may be edited by the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&perm;readableBy">
+    <rdfs:label>may be read by</rdfs:label>
+    <rdfs:comment>The subject may be read by the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+   
+  <rdf:Property rdf:about="&perm;deletableBy">
+    <rdfs:label>may be deleted by</rdfs:label>
+    <rdfs:comment>The subject may be deleted by the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&perm;augmentableBy">
+    <rdfs:label>may be augmented by</rdfs:label>
+    <rdfs:comment>The subject may be augmented (e.g. appended to) by the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+</rdf:RDF>
