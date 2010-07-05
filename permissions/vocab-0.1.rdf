@@ -7,6 +7,7 @@
     <!ENTITY dctype "http://purl.org/dc/dcmitype/">
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
     <!ENTITY admingeo "http://data.ordnancesurvey.co.uk/ontology/admingeo/">
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 ]>
 
 <rdf:RDF
@@ -16,7 +17,7 @@
     xmlns:xsd="&xsd;"
     xmlns:admingeo="&admingeo;"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:rdfs="&rdfs;"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:dctype="&dctype;"
     xmlns:dct="http://purl.org/dc/terms/"
@@ -63,38 +64,65 @@
     <rdfs:comment>The union of all agents</rdfs:comment>
   </foaf:Agent>
 
-  <rdf:Property rdf:about="&perm;permittee">
-    <rdfs:label>has permittee</rdfs:label>
-    <rdfs:comment>The object has a permission over the subject.</rdfs:comment>
-    <rdfs:range rdf:resource="&foaf;Agent"/>
+  <rdf:Property rdf:about="&perm;hasPermissionOver">
+    <rdfs:label>has some permission over</rdfs:label>
+    <rdfs:comment>The subject has some permission over the object.</rdfs:comment>
+    <rdfs:domain rdf:resource="&foaf;Agent"/>
     <rdfs:isDefinedBy rdf:resource="&perm;"/>
   </rdf:Property>
 
-  <rdf:Property rdf:about="&perm;editableBy">
-    <rdfs:label>may be edited by</rdfs:label>
-    <rdfs:comment>The subject may be edited by the object.</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+  <rdf:Property rdf:about="&perm;mayUpdate">
+    <rdfs:label>may update</rdfs:label>
+    <rdfs:comment>The subject may modify the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;hasPermissionOver"/>
     <rdfs:isDefinedBy rdf:resource="&perm;"/>
   </rdf:Property>
 
-  <rdf:Property rdf:about="&perm;readableBy">
-    <rdfs:label>may be read by</rdfs:label>
-    <rdfs:comment>The subject may be read by the object.</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+  <rdf:Property rdf:about="&perm;mayRead">
+    <rdfs:label>may read</rdfs:label>
+    <rdfs:comment>The subject may read the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;hasPermissionOver"/>
     <rdfs:isDefinedBy rdf:resource="&perm;"/>
   </rdf:Property>
    
-  <rdf:Property rdf:about="&perm;deletableBy">
-    <rdfs:label>may be deleted by</rdfs:label>
-    <rdfs:comment>The subject may be deleted by the object.</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+  <rdf:Property rdf:about="&perm;mayDelete">
+    <rdfs:label>may delete</rdfs:label>
+    <rdfs:comment>The subject may deletethe object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;hasPermissionOver"/>
     <rdfs:isDefinedBy rdf:resource="&perm;"/>
   </rdf:Property>
 
-  <rdf:Property rdf:about="&perm;augmentableBy">
-    <rdfs:label>may be augmented by</rdfs:label>
-    <rdfs:comment>The subject may be augmented (e.g. appended to) by the object.</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="&perm;permittee"/>
+  <rdf:Property rdf:about="&perm;mayAugment">
+    <rdfs:label>may augment</rdfs:label>
+    <rdfs:comment>The subject may augmented (e.g. append to) the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;hasPermissionOver"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&perm;mayAdminister">
+    <rdfs:label>may administer</rdfs:label>
+    <rdfs:comment>The subject holds all permissions over the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;hasPermissionOver"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&perm;mayCreateChildrenOf">
+    <rdfs:label>may create children of</rdfs:label>
+    <rdfs:comment>The subject can create child resources of the object.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="&perm;hasPermissionOver"/>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdf:Property>
+
+
+  <rdfs:Class rdf:about="&perm;ResourceMatch">
+    <rdfs:label>an expression to match resource URIs</rdfs:label>
+    <rdfs:comment>An instance is the union of all resource URIs matched by the regular expression in its perm:matchExpression.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="&perm;"/>
+  </rdfs:Class>
+
+  <rdf:Property rdf:about="&perm;matchExpression">
+    <rdfs:domain rdf:resource="&perm;ResourceMatch"/>
+    <rdfs:range rdf:resource="&rdfs;Literal"/>
     <rdfs:isDefinedBy rdf:resource="&perm;"/>
   </rdf:Property>
 
